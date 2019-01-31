@@ -1,0 +1,113 @@
+{
+  "name": "agents",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.jsx",
+  "scripts": {
+    "start": "npm run start:client & npm run start:server",
+    "start:client": "webpack-dev-server --config webpack.config.client.js",
+    "start:server": "webpack -w --config webpack.config.server.js",
+    "start:mongo": "docker run --rm -d -p 27017:27017 --name mongo mongo",
+    "clean": "rimraf dist/",
+    "build": "npm run clean && npm run build:server & npm run build:client",
+    "build:server": "webpack --env.prod --config webpack.config.server.js",
+    "build:client": "webpack --env.prod --config webpack.config.client.js",
+    "lint": "eslint --ext js,jsx src",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "deploy:test": "npm run lint && npm run test",
+    "deploy:build": "npm run deploy:test && npm run build && docker build -t agents . ",
+    "deploy:run": "docker run -p 7000:7000 agents",
+    "deploy:compose": "npm run deploy:test && npm run build && docker-compose up",
+    "deploy:up": "docker run -p 7000:7000 agents",
+    "debug:server": "webpack --config webpack.config.server.js -w",
+    "debug:client": "webpack --config webpack.config.client.js -w",
+    "debug": "npm run debug:server",
+    "dist": "npm run build && cd dist && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": {
+    "name": "Yuri Krupnik",
+    "email": "krupnik.yuri@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "@material-ui/core": "^3.1.0",
+    "axios": "^0.18.0",
+    "connect-mongo": "^2.0.1",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "flexboxgrid": "^6.3.1",
+    "google-distance-matrix": "^1.1.1",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.2.15",
+    "morgan": "^1.9.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-loadable": "^5.5.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^9.0.0",
+    "babel-loader": "^8.0.2",
+    "css-hot-loader": "^1.4.2",
+    "css-loader": "^0.28.11",
+    "dotenv-webpack": "^1.5.7",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "enzyme-to-json": "^3.3.4",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "file-loader": "^2.0.0",
+    "generate-json-webpack-plugin": "^0.3.1",
+    "html-webpack-plugin": "^3.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.6.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "moxios": "^0.4.0",
+    "node-sass": "^4.9.3",
+    "nodemon-webpack-plugin": "^4.0.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.0",
+    "uglifyjs-webpack-plugin": "^1.2.6",
+    "webpack": "^4.19.1",
+    "webpack-bundle-analyzer": "^3.0.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-node-externals": "^1.7.2",
+    "webpack-dev-server": "^3.1.8"
+  },
+  "jest": {
+    "setupFiles": [
+      "./jestsetup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "identity-obj-proxy"
+    }
+  }
+}
