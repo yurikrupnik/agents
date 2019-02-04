@@ -6,7 +6,6 @@ import { getIsolatedCountry } from './controller';
 
 const route = express.Router();
 
-distance.key('AIzaSyCaG9xbC8uNpFvk9UVpUjYx2N19ZNdHR_E');
 
 const handleError = (res) => {
     const statusCode = 500;
