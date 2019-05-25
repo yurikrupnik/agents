@@ -1,5 +1,7 @@
 # React-boilerplate  
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/yurikrupnik/agents.svg)](https://greenkeeper.io/)
+
 ## Running Dev
 
 ```
